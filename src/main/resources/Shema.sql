@@ -1,0 +1,89 @@
+-- DROP DATABASE IF EXISTS research;
+--
+-- CREATE DATABASE research;
+--
+-- \c research
+--
+-- DROP TABLE IF EXISTS user_details;
+--
+-- CREATE SEQUENCE IF NOT EXISTS SERIAL;
+--
+-- CREATE TABLE user_details (
+--                               id SERIAL PRIMARY KEY,
+--                               first_name VARCHAR(50),
+--                               last_name VARCHAR(50),
+--                               height INT,
+--                               weight INT
+-- );
+--
+-- DROP TABLE IF EXISTS roles;
+--
+-- CREATE TABLE roles (
+--                        roles VARCHAR(50) PRIMARY KEY,
+--                        Description VARCHAR(50)
+-- );
+--
+-- DROP TABLE IF EXISTS "user";
+--
+-- CREATE TABLE "user" (
+--                         id SERIAL PRIMARY KEY,
+--                         username VARCHAR(50),
+--                         password VARCHAR(100),
+--                         roles VARCHAR(50),
+--                         active SMALLINT DEFAULT 1,
+--                         user_id INT,
+--                         CONSTRAINT fk_userid FOREIGN KEY (user_id) REFERENCES user_details(id),
+--                         CONSTRAINT fk_role FOREIGN KEY (roles) REFERENCES roles(roles)
+-- );
+--
+-- INSERT INTO roles VALUES
+--                       ('ADMIN', 'Admin desc'),
+--                       ('REVIEWER', 'Reviewer desc'),
+--                       ('AUTHOR', 'Author desc'),
+--                       ('CONFERENCE', 'Conference desc');
+--
+-- INSERT INTO user_details VALUES
+--                              (1, 'Lim', 'Yang', 177, 72),
+--                              (2, 'Reine', 'Pavolia', 175, 50),
+--                              (3, 'Ollie', 'Kureiji', 165, 48),
+--                              (4, 'Anya', 'Melfissa', 148, 45);
+--
+-- INSERT INTO "user" VALUES
+--                        (1, 'admin', '$2a$10$pEwyHagJ6fbpNwAuIU4kXOYQnPT90YO7zWenR5y0DeJ1haVRftnRS', 'ADMIN', 1, 1),
+--                        (2, 'author', '$2a$10$pEwyHagJ6fbpNwAuIU4kXOYQnPT90YO7zWenR5y0DeJ1haVRftnRS', 'AUTHOR', 1, 2),
+--                        (3, 'reviewer', '$2a$10$nyOXTmKmmD8YczBtBIONDOokPTRC83ZoJRQtjIu5g4yq/QGvTIVQu', 'REVIEWER', 1, 3),
+--                        (4, 'conference', '$2a$10$nyOXTmKmmD8YczBtBIONDOokPTRC83ZoJRQtjIu5g4yq/QGvTIVQu', 'CONFERENCE', 1, 4);
+--
+-- CREATE TABLE paper_info (
+--                             paperID SERIAL PRIMARY KEY,
+--                             title VARCHAR(50),
+--                             filename VARCHAR(50),
+--                             upload DATE,
+--                             authorID INT,
+--                             description VARCHAR(50),
+--                             CONSTRAINT fk_authorID FOREIGN KEY (authorID) REFERENCES "user" (id)
+-- );
+--
+-- CREATE TABLE "fileInfo" (
+--                         fileID SERIAL PRIMARY KEY,
+--                         file_data BYTEA,
+--                         file_type VARCHAR(50)
+-- );
+--
+-- CREATE TABLE paper (
+--                        paperID SERIAL PRIMARY KEY,
+--                        file_info_ID INT,
+--                        status VARCHAR(50),
+--                        paper_info_ID INT,
+--                        reviewed_time INT DEFAULT 0,
+--                        CONSTRAINT fk_paperID FOREIGN KEY (paper_info_ID) REFERENCES paper_info (paperID),
+--                        CONSTRAINT fk_fileID FOREIGN KEY (file_info_ID) REFERENCES "fileInfo" (fileID)
+-- );
+--
+-- CREATE TABLE reviewer (
+--                           reviewerID INT NOT NULL,
+--                           is_active SMALLINT NOT NULL DEFAULT 1,
+--                           user_id INT NOT NULL,
+--                           PRIMARY KEY (reviewerID),
+--                           CONSTRAINT fk_reviewer_idxx FOREIGN KEY (user_id) REFERENCES user_details(id)
+-- );
