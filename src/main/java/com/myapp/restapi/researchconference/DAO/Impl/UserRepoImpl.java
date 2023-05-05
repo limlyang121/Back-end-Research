@@ -43,7 +43,7 @@ public class UserRepoImpl implements UserRepo {
     @Override
     public List<User> findAll(){
         Session session = entityManager.unwrap(Session.class);
-        Query<User> query = session.createQuery("From User where active = 1", User.class);
+        Query<User> query = session.createQuery("From User where active = 1 order by id desc ", User.class);
 
         return query.getResultList();
     }
