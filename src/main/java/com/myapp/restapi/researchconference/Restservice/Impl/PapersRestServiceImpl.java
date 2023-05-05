@@ -56,12 +56,9 @@ public class PapersRestServiceImpl implements PapersRestService {
 
     @Override
     @Transactional
-    public List<PaperDTO> findMyPublishedPapers(String status, int userID) {
+    public List<PaperDTO> findMyPublishedPapers(int userID) {
         List<Paper> paperList;
-        if (status.equalsIgnoreCase("ALL"))
-            paperList = paperDAO.findAllMyPublishedPapers(userID);
-        else
-            paperList = paperDAO.findMyPublishedPapersByStatus(status, userID);
+        paperList = paperDAO.findAllMyPublishedPapers(userID);
         return PaperDTO.convertToDTO(paperList);
     }
 

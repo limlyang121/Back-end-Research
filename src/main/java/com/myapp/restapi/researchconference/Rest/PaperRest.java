@@ -44,10 +44,10 @@ public class PaperRest {
     }
 
 
-    @GetMapping("papers/myPapers/publish/{status}")
-    public List<PaperDTO> findMyPublishedPapers(@PathVariable @NotBlank String status , HttpServletRequest request){
+    @GetMapping("papers/myPapers/publish")
+    public List<PaperDTO> findMyPublishedPapers(HttpServletRequest request){
         int myID = getDataFromJWT.getID(request);
-        return papersRestService.findMyPublishedPapers(status, myID);
+        return papersRestService.findMyPublishedPapers(myID);
     }
 
     @GetMapping("papers/{paperID}/review")
