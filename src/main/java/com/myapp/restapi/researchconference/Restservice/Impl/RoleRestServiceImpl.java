@@ -53,6 +53,12 @@ public class RoleRestServiceImpl implements RoleRestService {
     @Override
     @Transactional
     public boolean delete(String roleName) {
+        String[] importantRoles = {"ADMIN", "REVIEWER", "CONFERENCE", "AUTHOR"};
+        for (String importantRole : importantRoles){
+            if (importantRole.equalsIgnoreCase(roleName)){
+                return false;
+            }
+        }
         return roleDAO.delete(roleName);
     }
 }

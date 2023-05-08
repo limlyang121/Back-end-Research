@@ -62,7 +62,7 @@ public class RoleRest {
         if (deleted) {
             return ResponseEntity.ok("Successfully delete " + roleName + " Role");
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Role not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to Delete the role");
         }
     }
 
