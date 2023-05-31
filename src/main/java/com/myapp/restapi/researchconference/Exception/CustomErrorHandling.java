@@ -32,6 +32,14 @@ public class CustomErrorHandling  {
     }
 
     @ExceptionHandler
+    public final ResponseEntity<ExceptionResponse> UsernameExistedException(UsernameExistedException ex) {
+        ExceptionResponse errorResponse = new ExceptionResponse(ex.getMessage());
+        errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        errorResponse.setTimeStamp(System.currentTimeMillis());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler
     public final ResponseEntity<ExceptionResponse> PrivilegesUsers(NoDataFoundException ex) {
         ExceptionResponse errorResponse = new ExceptionResponse(ex.getMessage());
         errorResponse.setStatus(HttpStatus.NOT_FOUND.value());

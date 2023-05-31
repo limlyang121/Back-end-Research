@@ -1,5 +1,6 @@
 package com.myapp.restapi.researchconference.entity.Admin;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +21,7 @@ public class User  {
     @Column(name = "username")
     private String userName;
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @ManyToOne (cascade =
