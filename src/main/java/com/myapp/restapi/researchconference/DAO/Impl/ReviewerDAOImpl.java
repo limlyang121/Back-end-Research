@@ -4,6 +4,7 @@ import com.myapp.restapi.researchconference.DAO.Interface.ReviewerDAO;
 import com.myapp.restapi.researchconference.entity.Admin.Userdetails;
 import com.myapp.restapi.researchconference.entity.Review.Reviewer;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,8 @@ import java.util.Optional;
 
 @Repository
 public class ReviewerDAOImpl implements ReviewerDAO {
+    @PersistenceContext
     private EntityManager entityManager;
-
-    @Autowired
-    public ReviewerDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
 
     @Override
     public List<Reviewer> findAll() {

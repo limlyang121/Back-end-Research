@@ -5,6 +5,7 @@ import com.myapp.restapi.researchconference.entity.Paper.Paper;
 import com.myapp.restapi.researchconference.entity.Review.BlacklistPaper;
 import com.myapp.restapi.researchconference.entity.Review.Reviewer;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BlacklistDAOImpl implements BlacklistDAO {
+    @PersistenceContext
     private EntityManager entityManager;
-
-    @Autowired
-    public BlacklistDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
 
     @Override
     public boolean addBlackList(BlacklistPaper blacklistPaper) {

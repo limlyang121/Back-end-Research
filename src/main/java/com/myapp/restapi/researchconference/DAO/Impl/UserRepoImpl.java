@@ -5,6 +5,7 @@ import com.myapp.restapi.researchconference.entity.Admin.Role;
 import com.myapp.restapi.researchconference.entity.Admin.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,8 @@ import java.util.Optional;
 @Repository
 public class UserRepoImpl implements UserRepo {
 
-    private final EntityManager entityManager;
-
-    @Autowired
-    public UserRepoImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public User findByUserName(String userName) {

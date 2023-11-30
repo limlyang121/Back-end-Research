@@ -3,6 +3,7 @@ package com.myapp.restapi.researchconference.DAO.Impl;
 import com.myapp.restapi.researchconference.DAO.Interface.PaperDAO;
 import com.myapp.restapi.researchconference.entity.Paper.Paper;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,8 @@ import java.util.Optional;
 
 @Repository
 public class PaperDAOImpl implements PaperDAO {
-    private final EntityManager entityManager;
-
-    @Autowired
-    public PaperDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<Paper> findAll() {

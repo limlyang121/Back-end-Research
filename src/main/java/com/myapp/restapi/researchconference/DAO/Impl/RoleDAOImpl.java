@@ -3,6 +3,7 @@ package com.myapp.restapi.researchconference.DAO.Impl;
 import com.myapp.restapi.researchconference.DAO.Interface.RoleDAO;
 import com.myapp.restapi.researchconference.entity.Admin.Role;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,8 @@ import java.util.Optional;
 @Repository
 public class RoleDAOImpl implements RoleDAO {
 
+    @PersistenceContext
     private EntityManager entityManager;
-
-    @Autowired
-    public RoleDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
 
     @Override
     public List<Role> findAll() {

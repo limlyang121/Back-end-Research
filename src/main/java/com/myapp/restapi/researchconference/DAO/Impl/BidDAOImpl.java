@@ -3,6 +3,7 @@ package com.myapp.restapi.researchconference.DAO.Impl;
 import com.myapp.restapi.researchconference.DAO.Interface.BidDAO;
 import com.myapp.restapi.researchconference.entity.Bid.Bid;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,9 @@ import java.util.Optional;
 
 @Repository
 public class BidDAOImpl implements BidDAO {
-    private final EntityManager entityManager;
 
-    @Autowired
-    public BidDAOImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<Bid> findAllBidsByStatus(String Status) {
