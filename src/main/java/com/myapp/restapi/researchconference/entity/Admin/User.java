@@ -3,6 +3,7 @@ package com.myapp.restapi.researchconference.entity.Admin;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 @Data
@@ -21,7 +22,6 @@ public class User  {
     @Column(name = "username")
     private String userName;
     @Column(name = "password")
-    @JsonIgnore
     private String password;
 
     @ManyToOne (cascade =
@@ -36,6 +36,7 @@ public class User  {
     })
     @JoinColumn (name = "user_id", referencedColumnName = "id")
     @JsonManagedReference
+    @Valid
     private Userdetails userdetails;
 
 

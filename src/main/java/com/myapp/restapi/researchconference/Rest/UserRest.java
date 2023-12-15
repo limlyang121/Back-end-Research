@@ -3,12 +3,15 @@ package com.myapp.restapi.researchconference.Rest;
 import com.myapp.restapi.researchconference.DTO.ResetPasswordDTO;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
 import com.myapp.restapi.researchconference.entity.Admin.User;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -69,16 +72,20 @@ public class UserRest {
     }
 
     @PostMapping("users")
-    public ResponseEntity<String > add(@RequestBody User user){
+    public ResponseEntity<Object> add(@Valid @RequestBody User user){
         User userData = userRestService.save(user);
         if (userData == null){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Username is used by other user");
         }
-        return ResponseEntity.ok("Successfully Add");
+        URI url = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .build(userData.getId());
+
+        return ResponseEntity.created(url).build();
     }
 
     @PutMapping("users/{userID}")
-    public ResponseEntity<String > update(@RequestBody User user,@PathVariable int userID){
+    public ResponseEntity<String > update(@Valid @RequestBody User user,@PathVariable int userID){
         User userData = userRestService.update(user, userID);
         if (userData == null){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Username existed in DB");

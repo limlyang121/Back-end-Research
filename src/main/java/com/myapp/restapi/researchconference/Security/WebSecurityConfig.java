@@ -19,9 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.List;
-
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig {
 
     MyUserDetails userRestService;
@@ -32,11 +31,15 @@ public class WebSecurityConfig {
         this.userRestService = userRestService;
         this.jwtRequestFilter = jwtRequestFilter;
     }
+
+    private static final String[] SWAGGER_PATHS = {"/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**", "/webjars/swagger-ui/**"};
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests((request) ->
                         request.requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/").permitAll()
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers(SWAGGER_PATHS).permitAll()
                                 .requestMatchers("/api/users/**").hasAuthority("ADMIN")
                                 .requestMatchers("api/papers/**").hasAuthority("AUTHOR, REVIEWER, CONFERENCE")
                                 .requestMatchers("api/bids/**").hasAuthority("REVIEWER, CONFERENCE")

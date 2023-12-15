@@ -2,6 +2,10 @@ package com.myapp.restapi.researchconference.entity.Admin;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,13 +22,20 @@ public class Userdetails {
     private int id;
 
     @Column(name = "first_name")
+    @Size(min = 2)
     private String firstName;
     @Column(name = "last_name")
+    @Size(min = 1)
     private String lastName;
 
     @Column(name = "email")
+    @Email(message = "Please input correct email address")
     private String email;
+
+    @Positive
     private int height;
+
+    @Positive
     private int weight;
 
     @OneToOne (mappedBy = "userdetails", cascade = {
