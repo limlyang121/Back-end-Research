@@ -3,6 +3,7 @@ package com.myapp.restapi.researchconference.Restservice.Impl;
 import com.myapp.restapi.researchconference.DAO.Interface.ReviewerDAO;
 import com.myapp.restapi.researchconference.DAO.Interface.UserRepo;
 import com.myapp.restapi.researchconference.DTO.ResetPasswordDTO;
+import com.myapp.restapi.researchconference.DTO.UserDTO;
 import com.myapp.restapi.researchconference.Exception.PrivilegesUserException;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
 import com.myapp.restapi.researchconference.entity.Admin.Role;
@@ -32,14 +33,17 @@ public class UserRestServiceImpl implements UserRestService {
 
     @Override
     @Transactional
-    public List<User> findAll() {
-        return userRepo.findAll();
+    public List<UserDTO> findAll() {
+        List<UserDTO> userList = UserDTO.convertToDTO(userRepo.findAll());
+        return userList;
+
     }
 
     @Override
     @Transactional
-    public List<User> findNonActiveAccount() {
-        return userRepo.findNonActiveAccount();
+    public List<UserDTO> findNonActiveAccount() {
+        List<UserDTO> userList = UserDTO.convertToDTO(userRepo.findNonActiveAccount());
+        return userList;
     }
 
     @Transactional
@@ -51,8 +55,11 @@ public class UserRestServiceImpl implements UserRestService {
 
     @Override
     @Transactional
-    public User findByID(int userID) {
-        return userRepo.findByID(userID);
+    public UserDTO findByID(int userID) {
+        UserDTO userDTO = UserDTO.convertToDTOSingle(userRepo.findByID(userID));
+        return userDTO;
+
+
     }
 
     @Override

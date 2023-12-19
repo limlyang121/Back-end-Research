@@ -1,5 +1,6 @@
 package com.myapp.restapi.researchconference.entity.Admin;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

@@ -1,6 +1,7 @@
 package com.myapp.restapi.researchconference.Restservice.Interface;
 
 import com.myapp.restapi.researchconference.DTO.ResetPasswordDTO;
+import com.myapp.restapi.researchconference.DTO.UserDTO;
 import com.myapp.restapi.researchconference.entity.Admin.User;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +9,9 @@ import java.util.List;
 
 @Service
 public interface UserRestService {
-    List<User> findAll();
+    List<UserDTO> findAll();
 
-    List<User> findNonActiveAccount();
+    List<UserDTO> findNonActiveAccount();
 
     List<User> findUserByRole(String roleName);
 
@@ -18,7 +19,7 @@ public interface UserRestService {
 
     List<User> searchByUsernameAndRole(String username, String roleName);
 
-    User findByID(int userID);
+    UserDTO findByID(int userID);
 
     User findByUserName(String username);
 

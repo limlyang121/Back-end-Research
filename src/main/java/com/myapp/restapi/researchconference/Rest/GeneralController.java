@@ -1,6 +1,7 @@
 package com.myapp.restapi.researchconference.Rest;
 
 
+import com.myapp.restapi.researchconference.DTO.UserDTO;
 import com.myapp.restapi.researchconference.Restservice.Interface.GeneralRestService;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
 import com.myapp.restapi.researchconference.Util.GetDataFromJWT;
@@ -39,9 +40,9 @@ public class GeneralController {
     }
 
     @GetMapping("profile")
-    public User getMyData(HttpServletRequest request){
+    public UserDTO getMyData(HttpServletRequest request){
         int userID = getDataFromJWT.getID(request);
-        User user = userRestService.findByID(userID);
+        UserDTO user = userRestService.findByID(userID);
         if (user == null)
             return null;
 

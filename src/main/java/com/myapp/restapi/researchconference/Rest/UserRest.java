@@ -1,12 +1,17 @@
 package com.myapp.restapi.researchconference.Rest;
 
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.myapp.restapi.researchconference.DTO.ResetPasswordDTO;
+import com.myapp.restapi.researchconference.DTO.UserDTO;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
 import com.myapp.restapi.researchconference.entity.Admin.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,15 +33,13 @@ public class UserRest {
     }
 
     @GetMapping("users")
-    public List<User> findAll(){
-        List<User> userList = userRestService.findAll();
-
+    public List<UserDTO> findAll(){
         return userRestService.findAll();
     }
 
     @GetMapping("users/nonActive")
-    public List<User> findNonActive(){
-        List<User> userList = userRestService.findNonActiveAccount();
+    public List<UserDTO> findNonActive(){
+        List<UserDTO> userList = userRestService.findNonActiveAccount();
         return userList;
     }
 
@@ -46,7 +49,7 @@ public class UserRest {
     }
 
     @GetMapping("users/userID/{userID}")
-    public User findByID(@PathVariable int userID){
+    public UserDTO findByID(@PathVariable int userID){
         return userRestService.findByID(userID);
     }
 
@@ -115,5 +118,23 @@ public class UserRest {
 
         return  ResponseEntity.ok("Successfully Reset the password");
     }
+
+    private MappingJacksonValue filterOutPassword(User user){
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(user);
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.serializeAllExcept("password");
+        FilterProvider filterProvider = new SimpleFilterProvider().addFilter("PasswordFilter", filter);
+        mappingJacksonValue.setFilters(filterProvider);
+        return mappingJacksonValue;
+    }
+
+    private MappingJacksonValue filterOutPasswordList(List<User> user){
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(user);
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.serializeAllExcept("password");
+        FilterProvider filterProvider = new SimpleFilterProvider().addFilter("PasswordFilter", filter);
+        mappingJacksonValue.setFilters(filterProvider);
+        return mappingJacksonValue;
+    }
+
+
 
 }
