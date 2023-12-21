@@ -82,12 +82,11 @@ public class UserRepoImpl implements UserRepo {
         Session session = entityManager.unwrap(Session.class);
         try{
             if (user.getId() == 0){
-                Role role = findRoleByName(user.getRole().getRole().toUpperCase());
-                user.setRole(role);
                 session.persist(user);
             }else{
                 session.merge(user);
             }
+
             return user;
 
         }catch (NoResultException e){

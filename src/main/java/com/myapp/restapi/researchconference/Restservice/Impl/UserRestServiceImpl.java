@@ -1,9 +1,11 @@
 package com.myapp.restapi.researchconference.Restservice.Impl;
 
 import com.myapp.restapi.researchconference.DAO.Interface.ReviewerDAO;
+import com.myapp.restapi.researchconference.DAO.Interface.RoleDAO;
 import com.myapp.restapi.researchconference.DAO.Interface.UserRepo;
 import com.myapp.restapi.researchconference.DTO.ResetPasswordDTO;
 import com.myapp.restapi.researchconference.DTO.UserDTO;
+import com.myapp.restapi.researchconference.Exception.NoDataFoundException;
 import com.myapp.restapi.researchconference.Exception.PrivilegesUserException;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
 import com.myapp.restapi.researchconference.entity.Admin.Role;
@@ -21,15 +23,18 @@ import java.util.Optional;
 public class UserRestServiceImpl implements UserRestService {
 
     private final UserRepo userRepo;
+    private final RoleDAO roleDAO;
     private final ReviewerDAO reviewerDAO;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserRestServiceImpl(UserRepo userRepo, ReviewerDAO reviewerDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserRestServiceImpl(UserRepo userRepo, RoleDAO roleDAO, ReviewerDAO reviewerDAO, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepo = userRepo;
+        this.roleDAO = roleDAO;
         this.reviewerDAO = reviewerDAO;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+
 
     @Override
     @Transactional
@@ -83,6 +88,12 @@ public class UserRestServiceImpl implements UserRestService {
     @Override
     @Transactional
     public User save(User user) {
+        Optional<Role> role = roleDAO.findRoleByName(user.getRole().getRole().toUpperCase());
+        if (role.isEmpty())
+            throw new NoDataFoundException("Role can't be found");
+        user.setRole(role.get());
+
+
         User tempUser = userRepo.findByUserName(user.getUserName());
         if (tempUser != null)
             return null;

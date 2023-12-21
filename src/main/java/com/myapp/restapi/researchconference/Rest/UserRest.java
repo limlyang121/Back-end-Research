@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.myapp.restapi.researchconference.DTO.ResetPasswordDTO;
 import com.myapp.restapi.researchconference.DTO.UserDTO;
+import com.myapp.restapi.researchconference.Exception.NoDataFoundException;
+import com.myapp.restapi.researchconference.Restservice.Interface.RoleRestService;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
+import com.myapp.restapi.researchconference.entity.Admin.Role;
 import com.myapp.restapi.researchconference.entity.Admin.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
