@@ -27,7 +27,6 @@ public class MyUserDetails implements UserDetailsService {
     }
 
     @Override
-    @Cacheable(value = "users", key = "#username")
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException, RuntimeException {
         User user = userRepo.findByUserName(username);
         if (user == null){
@@ -42,7 +41,6 @@ public class MyUserDetails implements UserDetailsService {
         return List.of(new SimpleGrantedAuthority((user.getRole().getRole()).toUpperCase()));
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     public void logout() {
     }
 }
