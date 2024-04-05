@@ -9,17 +9,8 @@ https://github.com/limlyang121/Research_Conference
 
 
 **To do:**
-Fix some Bug (Some Alert not working in deploy and Navbar have larger height compared to localhost)      
+Enchance User Experience and Touch up Landing page and System UI   
 
-**Completed Feauture:**  
-1. Using Google Cloud Console-Google Drive as Server  
-2. RBAC Security
-3. JWT Security on both front-end and Back-end
-4. Prevent IDOR (Insecure Direct Object Reference)
-5. RBAC
-6. Upload And Download Document to server
-7. Etc (Some minor Stuff)    
-8. Back-end Security (SecurityFilterChain and Cors Config)   
 
 
 **Technologies Used:**  
