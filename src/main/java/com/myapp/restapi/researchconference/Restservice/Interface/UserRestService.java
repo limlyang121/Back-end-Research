@@ -9,7 +9,9 @@ import java.util.List;
 
 @Service
 public interface UserRestService {
-    List<UserDTO> findAll();
+    List<UserDTO> findAll(int pageNumber, int myuserID);
+    long getTotalUser();
+
 
     List<UserDTO> findNonActiveAccount();
 

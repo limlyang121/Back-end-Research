@@ -8,7 +8,9 @@ import java.util.List;
 public interface UserRepo  {
 
     User findByUserName(String userName);
-    List<User> findAll();
+    List<User> findAll(int pageNumber, int myUserID);
+
+    long getTotalUser();
 
     List<User> findNonActiveAccount();
 

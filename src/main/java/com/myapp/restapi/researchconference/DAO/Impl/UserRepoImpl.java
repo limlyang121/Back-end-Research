@@ -37,13 +37,26 @@ public class UserRepoImpl implements UserRepo {
         }
     }
 
-    @Override
-    public List<User> findAll(){
-        Session session = entityManager.unwrap(Session.class);
-        Query<User> query = session.createQuery("From User where active = 1 order by id asc ", User.class);
 
+
+    @Override
+    public List<User> findAll(int pageNumber, int myUserID){
+        Session session = entityManager.unwrap(Session.class);
+        Query<User> query = session.createQuery("From User where active = 1 and id != :myUserID order by id asc ", User.class);
+        query.setParameter("myUserID", myUserID);
+        query.setFirstResult((pageNumber - 1) * 5);
+        query.setMaxResults(5);
         return query.getResultList();
     }
+
+    @Override
+    public long getTotalUser() {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Long> query = session.createQuery("Select count(id) from User where active = 1 ", Long.class);
+        return query.getSingleResult();
+
+    }
+
 
     @Override
     public List<User> findNonActiveAccount() {

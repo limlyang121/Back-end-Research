@@ -8,6 +8,7 @@ import com.myapp.restapi.researchconference.DTO.UserDTO;
 import com.myapp.restapi.researchconference.Exception.NoDataFoundException;
 import com.myapp.restapi.researchconference.Exception.PrivilegesUserException;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
+import com.myapp.restapi.researchconference.Util.GetDataFromJWT;
 import com.myapp.restapi.researchconference.entity.Admin.Role;
 import com.myapp.restapi.researchconference.entity.Admin.User;
 import com.myapp.restapi.researchconference.entity.Review.Reviewer;
@@ -35,13 +36,17 @@ public class UserRestServiceImpl implements UserRestService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-
     @Override
     @Transactional
-    public List<UserDTO> findAll() {
-        List<UserDTO> userList = UserDTO.convertToDTO(userRepo.findAll());
+    public List<UserDTO> findAll(int pageNumber, int myUserID) {
+        List<UserDTO> userList = UserDTO.convertToDTO(userRepo.findAll(pageNumber, myUserID));
         return userList;
 
+    }
+
+    @Override
+    public long getTotalUser() {
+        return userRepo.getTotalUser();
     }
 
     @Override

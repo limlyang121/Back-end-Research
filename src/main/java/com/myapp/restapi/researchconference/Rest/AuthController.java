@@ -34,6 +34,7 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
         }catch (BadCredentialsException e){
+            e.printStackTrace();
             throw new InvalidUsernameOrPassword("Incorrect username or password");
         }
 

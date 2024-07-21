@@ -8,8 +8,10 @@ import com.myapp.restapi.researchconference.DTO.UserDTO;
 import com.myapp.restapi.researchconference.Exception.NoDataFoundException;
 import com.myapp.restapi.researchconference.Restservice.Interface.RoleRestService;
 import com.myapp.restapi.researchconference.Restservice.Interface.UserRestService;
+import com.myapp.restapi.researchconference.Util.GetDataFromJWT;
 import com.myapp.restapi.researchconference.entity.Admin.Role;
 import com.myapp.restapi.researchconference.entity.Admin.User;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,15 +32,18 @@ import java.util.Optional;
 public class UserRest {
 
     private final UserRestService userRestService;
+    private final GetDataFromJWT getDataFromJWT;
 
     @Autowired
-    public UserRest(UserRestService userRestService) {
+    public UserRest(UserRestService userRestService, GetDataFromJWT getDataFromJWT) {
         this.userRestService = userRestService;
+        this.getDataFromJWT = getDataFromJWT;
     }
 
     @GetMapping("users")
-    public List<UserDTO> findAll(){
-        return userRestService.findAll();
+    public List<UserDTO> findAll(@RequestParam int pageNumber, HttpServletRequest request) {
+        int myUserID = getDataFromJWT.getID(request);
+        return userRestService.findAll(pageNumber, myUserID);
     }
 
     @GetMapping("users/nonActive")
