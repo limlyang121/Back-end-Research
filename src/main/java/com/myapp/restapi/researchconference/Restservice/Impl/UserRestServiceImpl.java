@@ -45,14 +45,14 @@ public class UserRestServiceImpl implements UserRestService {
     }
 
     @Override
-    public long getTotalUser() {
-        return userRepo.getTotalUser();
+    public long getTotalUser(int isActive) {
+        return userRepo.getTotalUser(isActive);
     }
 
     @Override
     @Transactional
-    public List<UserDTO> findNonActiveAccount() {
-        List<UserDTO> userList = UserDTO.convertToDTO(userRepo.findNonActiveAccount());
+    public List<UserDTO> findNonActiveAccount(int pageNumber) {
+        List<UserDTO> userList = UserDTO.convertToDTO(userRepo.findNonActiveAccount(pageNumber));
         return userList;
     }
 

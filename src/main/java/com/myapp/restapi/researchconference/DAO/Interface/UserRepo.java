@@ -10,9 +10,9 @@ public interface UserRepo  {
     User findByUserName(String userName);
     List<User> findAll(int pageNumber, int myUserID);
 
-    long getTotalUser();
+    long getTotalUser(int isActive);
 
-    List<User> findNonActiveAccount();
+    List<User> findNonActiveAccount(int pageNumber);
 
     List<User> findUserByRole(String userName);
 

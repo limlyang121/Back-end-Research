@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 public interface UserRestService {
     List<UserDTO> findAll(int pageNumber, int myuserID);
-    long getTotalUser();
+    long getTotalUser(int isActive);
 
 
-    List<UserDTO> findNonActiveAccount();
+    List<UserDTO> findNonActiveAccount(int pageNumber);
 
     List<User> findUserByRole(String roleName);
 

@@ -46,9 +46,14 @@ public class UserRest {
         return userRestService.findAll(pageNumber, myUserID);
     }
 
+    @GetMapping("TotalUsers")
+    public long getTotalUser(@RequestParam int isActive) {
+        return userRestService.getTotalUser(isActive);
+    }
+
     @GetMapping("users/nonActive")
-    public List<UserDTO> findNonActive(){
-        List<UserDTO> userList = userRestService.findNonActiveAccount();
+    public List<UserDTO> findNonActive(int pageNumber){
+        List<UserDTO> userList = userRestService.findNonActiveAccount(pageNumber);
         return userList;
     }
 

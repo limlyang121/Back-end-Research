@@ -36,9 +36,6 @@ public class UserRepoImpl implements UserRepo {
             return null;
         }
     }
-
-
-
     @Override
     public List<User> findAll(int pageNumber, int myUserID){
         Session session = entityManager.unwrap(Session.class);
@@ -50,18 +47,20 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public long getTotalUser() {
+    public long getTotalUser(int isActive) {
         Session session = entityManager.unwrap(Session.class);
-        Query<Long> query = session.createQuery("Select count(id) from User where active = 1 ", Long.class);
+        Query<Long> query = session.createQuery("Select count(id) from User where active = :isActive ", Long.class);
+        query.setParameter("isActive", isActive);
         return query.getSingleResult();
-
     }
 
 
     @Override
-    public List<User> findNonActiveAccount() {
+    public List<User> findNonActiveAccount(int pageNumber) {
         Session session = entityManager.unwrap(Session.class);
         Query<User> query = session.createQuery("From User where active = 0", User.class);
+        query.setFirstResult((pageNumber - 1) * 5);
+        query.setMaxResults(5);
 
         return query.getResultList();
     }
