@@ -56,10 +56,21 @@ public class PapersRestServiceImpl implements PapersRestService {
 
     @Override
     @Transactional
+    public long FindTotalOfMyPaper(int userID) {
+        return paperDAO.FindTotalOfMyPaper(userID);
+    }
+
+    @Override
+    @Transactional
     public List<PaperDTO> findMyPublishedPapers(int userID) {
         List<Paper> paperList;
         paperList = paperDAO.findAllMyPublishedPapers(userID);
         return PaperDTO.convertToDTO(paperList);
+    }
+
+    @Override
+    public long findTotalOfMyPublishedPapers(int userID) {
+        return paperDAO.findTotalOfMyPublishedPapers(userID);
     }
 
     @Override

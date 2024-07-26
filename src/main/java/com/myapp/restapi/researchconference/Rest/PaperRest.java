@@ -9,7 +9,6 @@ import com.myapp.restapi.researchconference.Restservice.Interface.PapersRestServ
 import com.myapp.restapi.researchconference.Util.GetDataFromJWT;
 import com.myapp.restapi.researchconference.entity.Paper.Paper;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -44,10 +43,23 @@ public class PaperRest {
     }
 
 
+    @GetMapping("papers/totalpapers")
+    public long FindTotalOfMyPaper(HttpServletRequest request){
+        int myID = getDataFromJWT.getID(request);
+        return papersRestService.FindTotalOfMyPaper(myID);
+    }
+
+
     @GetMapping("papers/myPapers/publish")
     public List<PaperDTO> findMyPublishedPapers(HttpServletRequest request){
         int myID = getDataFromJWT.getID(request);
         return papersRestService.findMyPublishedPapers(myID);
+    }
+
+    @GetMapping("papers/myPapers/publish/total")
+    public long findTotalOfMyPublishedPapers (HttpServletRequest request){
+        int myID = getDataFromJWT.getID(request);
+        return papersRestService.findTotalOfMyPublishedPapers(myID);
     }
 
     @GetMapping("papers/{paperID}/review")

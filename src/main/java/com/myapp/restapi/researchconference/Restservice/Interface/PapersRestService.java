@@ -13,7 +13,11 @@ public interface PapersRestService {
     List<PaperDTO> findAll();
 
     List<PaperDTO> findMyPaper(int userID);
+
+    long FindTotalOfMyPaper(int userID);
     List<PaperDTO> findMyPublishedPapers(int userID);
+
+    long findTotalOfMyPublishedPapers(int userID);
 
     PaperDTO findPaperByID(int userID, int authorID) throws IllegalAccessException;
 

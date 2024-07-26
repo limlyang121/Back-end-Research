@@ -8,8 +8,12 @@ import java.util.Optional;
 public interface PaperDAO {
     List<Paper> findAll();
 
+    long FindTotalOfMyPaper(int userID);
+
     List<Paper> findMyPaper(int userID);
     List<Paper> findAllMyPublishedPapers(int userID);
+
+    long findTotalOfMyPublishedPapers(int userID);
 
     List<Paper> findMyPublishedPapersByStatus(String status, int userID);
 

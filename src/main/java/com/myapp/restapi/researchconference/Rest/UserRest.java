@@ -57,6 +57,7 @@ public class UserRest {
         return userList;
     }
 
+
     @GetMapping("users/{roleName}")
     public List<User> findAllByRole(@PathVariable String roleName){
         return userRestService.findUserByRole(roleName);

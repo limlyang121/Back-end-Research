@@ -6,7 +6,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,6 +22,19 @@ public class PaperDAOImpl implements PaperDAO {
 
         Query<Paper> paperQuery = session.createQuery("From Paper", Paper.class);
         return paperQuery.getResultList();
+    }
+
+    @Override
+    public long FindTotalOfMyPaper(int userID) {
+        Session session = entityManager.unwrap(Session.class);
+
+
+        Query<Long> query = session.createQuery("Select Count(p.id) from Paper p inner join PaperInfo  pi on " +
+                "p.id = pi.id where (pi.authorID.id = :userID) and (p.status = 'Pending' or p.status = 'Ready') ", Long.class);
+
+        query.setParameter("userID", userID);
+        return query.getSingleResult();
+
     }
 
     @Override
@@ -75,6 +87,16 @@ public class PaperDAOImpl implements PaperDAO {
         }catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public long findTotalOfMyPublishedPapers(int userID) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Long> query = session.createQuery("select count(p.id) from Paper p inner join PaperInfo pi " +
+                "on p.id = pi.id where (pi.authorID.id = :userID) and (p.status = 'Accept' or p.status = 'Reject')", Long.class);
+
+        query.setParameter("userID", userID);
+        return query.getSingleResult();
     }
 
     @Override
