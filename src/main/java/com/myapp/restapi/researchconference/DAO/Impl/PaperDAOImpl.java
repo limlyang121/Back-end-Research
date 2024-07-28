@@ -1,6 +1,7 @@
 package com.myapp.restapi.researchconference.DAO.Impl;
 
 import com.myapp.restapi.researchconference.DAO.Interface.PaperDAO;
+import com.myapp.restapi.researchconference.entity.Admin.User;
 import com.myapp.restapi.researchconference.entity.Paper.Paper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -64,12 +65,14 @@ public class PaperDAOImpl implements PaperDAO {
     }
 
     @Override
-    public List<Paper> findMyPaper(int userID) {
+    public List<Paper> findMyPaper(int userID, int pageNumber) {
         Session session = entityManager.unwrap(Session.class);
         try{
             Query<Paper> paperQuery = session.createQuery("From Paper p inner join PaperInfo pi on p.paperInfo.id = pi.paperID" +
                     " where pi.authorID.id = :userID and (p.status = 'Pending' or p.status = 'Ready')", Paper.class);
             paperQuery.setParameter("userID", userID);
+            paperQuery.setFirstResult((pageNumber - 1) * 5);
+            paperQuery.setMaxResults(5);
             return paperQuery.getResultList();
         }catch (Exception e){
             return null;
@@ -77,12 +80,14 @@ public class PaperDAOImpl implements PaperDAO {
     }
 
     @Override
-    public List<Paper> findAllMyPublishedPapers(int userID) {
+    public List<Paper> findAllMyPublishedPapers(int userID, int pageNumber) {
         Session session = entityManager.unwrap(Session.class);
         try{
             Query<Paper> paperQuery = session.createQuery("From Paper p inner join PaperInfo pi on p.paperInfo.id = pi.paperID" +
                     " where pi.authorID.id = :userID and (p.status = 'Accept' or p.status = 'Reject')", Paper.class);
             paperQuery.setParameter("userID", userID);
+            paperQuery.setFirstResult(((pageNumber - 1) * 5));
+            paperQuery.setMaxResults(5);
             return paperQuery.getResultList();
         }catch (Exception e){
             return null;

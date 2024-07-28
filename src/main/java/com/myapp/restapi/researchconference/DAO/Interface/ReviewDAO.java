@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReviewDAO {
+    long findMyTotalReviews(int reviewerID);
     List<Review> findMyReviews(int reviewerID);
 
     Optional<Review> findReviewByID(int reviewID);

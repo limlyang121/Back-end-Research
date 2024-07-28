@@ -12,10 +12,10 @@ import java.util.List;
 public interface PapersRestService {
     List<PaperDTO> findAll();
 
-    List<PaperDTO> findMyPaper(int userID);
+    List<PaperDTO> findMyPaper(int userID, int pageNumber);
 
     long FindTotalOfMyPaper(int userID);
-    List<PaperDTO> findMyPublishedPapers(int userID);
+    List<PaperDTO> findMyPublishedPapers(int userID, int pageNumber);
 
     long findTotalOfMyPublishedPapers(int userID);
 

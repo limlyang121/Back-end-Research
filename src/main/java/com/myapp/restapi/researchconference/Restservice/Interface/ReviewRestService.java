@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReviewRestService {
+    long findMyTotalReviews(int reviewerID);
     List<ReviewDTO> findMyReviews(int reviewerID);
     ReviewDTO findReviewByID(int reviewID, int reviewerID) throws IllegalAccessException;
     List<ReviewDTO> findReviewedPaper();

@@ -18,6 +18,15 @@ public class ReviewDAOImpl implements ReviewDAO {
     private EntityManager entityManager;
 
     @Override
+    public long findMyTotalReviews(int reviewerID) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Long> query = session.createQuery("select count(reviewID) from Review r where bid.reviewer.reviewerID = :reviewerID", Long.class);
+        query.setParameter("reviewerID", reviewerID);
+        return query.getSingleResult();
+
+    }
+
+    @Override
     public List<Review> findMyReviews(int reviewerID) {
         Session session = entityManager.unwrap(Session.class);
 

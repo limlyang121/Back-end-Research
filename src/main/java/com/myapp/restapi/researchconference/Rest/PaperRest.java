@@ -37,9 +37,9 @@ public class PaperRest {
     }
 
     @GetMapping("papers/myPapers")
-    public List<PaperDTO> findMyPapers(HttpServletRequest request){
+    public List<PaperDTO> findMyPapers(@RequestParam int pageNumber ,HttpServletRequest request){
         int myID = getDataFromJWT.getID(request);
-        return papersRestService.findMyPaper(myID);
+        return papersRestService.findMyPaper(myID, pageNumber);
     }
 
 
@@ -51,9 +51,9 @@ public class PaperRest {
 
 
     @GetMapping("papers/myPapers/publish")
-    public List<PaperDTO> findMyPublishedPapers(HttpServletRequest request){
+    public List<PaperDTO> findMyPublishedPapers(@RequestParam int pageNumber ,HttpServletRequest request){
         int myID = getDataFromJWT.getID(request);
-        return papersRestService.findMyPublishedPapers(myID);
+        return papersRestService.findMyPublishedPapers(myID, pageNumber);
     }
 
     @GetMapping("papers/myPapers/publish/total")

@@ -30,6 +30,12 @@ public class BidRest {
         return bidRestService.findAllBidByStatus(status);
     }
 
+    @GetMapping("bids/accepted/total")
+    public long FindMyTotalAcceptedBids(HttpServletRequest request) {
+        int myID = getDataFromJWT.getID(request);
+        return bidRestService.findMyTotalAcceptedBid(myID);
+    }
+
     @GetMapping("bids/accepted")
     public List<BidDTO> findMyAcceptedBids(HttpServletRequest request){
         int reviewerID = getDataFromJWT.getID(request);

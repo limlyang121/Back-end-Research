@@ -29,6 +29,12 @@ public class ReviewRest {
         this.getDataFromJWT = getDataFromJWT;
     }
 
+    @GetMapping("reviews/myReviews/total")
+    public long findMyTotalReviews (HttpServletRequest request){
+        int reviewerID = getDataFromJWT.getID(request);
+        return reviewRestService.findMyTotalReviews(reviewerID);
+    }
+
     @GetMapping("reviews/myReviews")
     public List<ReviewDTO> findMyReviews(HttpServletRequest request){
         int reviewerID = getDataFromJWT.getID(request);

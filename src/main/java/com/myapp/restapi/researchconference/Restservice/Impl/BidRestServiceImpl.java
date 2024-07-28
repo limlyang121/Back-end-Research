@@ -45,6 +45,12 @@ public class BidRestServiceImpl implements BidRestService {
 
     @Override
     @Transactional
+    public long findMyTotalAcceptedBid(int reviewerID) {
+        return bidDAO.findMyTotalAcceptedBid(reviewerID);
+    }
+
+    @Override
+    @Transactional
     public List<BidDTO> findMyAcceptedBid(int reviewerID) {
         List<Bid> bid = bidDAO.findMyAcceptedBid(reviewerID);
         return BidDTO.DTOList(bid);

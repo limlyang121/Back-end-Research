@@ -10,6 +10,7 @@ public interface BidDAO {
 
     List<Bid> findMyBidByStatus(int reviewerID, String status);
 
+    long findMyTotalAcceptedBid(int reviewerID);
     List<Bid> findMyAcceptedBid(int reviewerID);
     List<Bid> findMyCompletedBid(int reviewerID);
 

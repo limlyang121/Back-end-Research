@@ -10,8 +10,8 @@ public interface PaperDAO {
 
     long FindTotalOfMyPaper(int userID);
 
-    List<Paper> findMyPaper(int userID);
-    List<Paper> findAllMyPublishedPapers(int userID);
+    List<Paper> findMyPaper(int userID, int pageNumber);
+    List<Paper> findAllMyPublishedPapers(int userID, int pageNumber);
 
     long findTotalOfMyPublishedPapers(int userID);
 

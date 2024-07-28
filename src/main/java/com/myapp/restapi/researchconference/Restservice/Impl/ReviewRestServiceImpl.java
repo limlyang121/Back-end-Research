@@ -37,6 +37,12 @@ public class ReviewRestServiceImpl implements ReviewRestService {
 
     @Override
     @Transactional
+    public long findMyTotalReviews(int reviewerID) {
+        return reviewDAO.findMyTotalReviews(reviewerID);
+    }
+
+    @Override
+    @Transactional
     public List<ReviewDTO> findMyReviews(int reviewerID) {
         List<Review> reviewList = reviewDAO.findMyReviews(reviewerID);
         return ReviewDTO.DTOList(reviewList);
