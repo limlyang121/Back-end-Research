@@ -44,7 +44,7 @@ public class BidDAOImpl implements BidDAO {
     public long findMyTotalAcceptedBid(int reviewerID) {
         Session session = entityManager.unwrap(Session.class);
         Query<Long> query = session.createQuery("Select count(b.id) from Bid b where reviewer.reviewerID = :reviewerID " +
-                "and status = 'Accepted'", Long.class);
+                "and status = 'Accept'", Long.class);
 
         query.setParameter("reviewerID", reviewerID);
         return query.getSingleResult();
