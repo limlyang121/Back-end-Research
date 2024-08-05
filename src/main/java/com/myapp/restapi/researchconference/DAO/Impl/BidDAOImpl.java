@@ -51,11 +51,13 @@ public class BidDAOImpl implements BidDAO {
     }
 
     @Override
-    public List<Bid> findMyAcceptedBid(int reviewerID) {
+    public List<Bid> findMyAcceptedBid(int reviewerID, int pageNumber) {
         Session session = entityManager.unwrap(Session.class);
 
         Query<Bid> query = session.createQuery("From Bid where reviewer.reviewerID = :reviewerID and status = 'Accept'", Bid.class);
         query.setParameter("reviewerID", reviewerID);
+        query.setFirstResult((pageNumber - 1) * 5);
+        query.setMaxResults(5);
         return query.getResultList();
     }
 

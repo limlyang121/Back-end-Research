@@ -37,15 +37,15 @@ public class BidRest {
     }
 
     @GetMapping("bids/accepted")
-    public List<BidDTO> findMyAcceptedBids(HttpServletRequest request){
+    public List<BidDTO> findMyAcceptedBids(@RequestParam int pageNumber , HttpServletRequest request){
         int reviewerID = getDataFromJWT.getID(request);
-        return bidRestService.findMyAcceptedBid(reviewerID);
+        return bidRestService.findMyAcceptedBid(reviewerID, pageNumber);
     }
 
     @GetMapping("bids/completed")
-    public List<BidDTO> findMyCompletedBids(HttpServletRequest request){
+    public List<BidDTO> findMyCompletedBids(@RequestParam int pageNumber, HttpServletRequest request){
         int reviewerID = getDataFromJWT.getID(request);
-        return bidRestService.findMyAcceptedBid(reviewerID);
+        return bidRestService.findMyAcceptedBid(reviewerID, pageNumber);
     }
 
     @GetMapping("bids/{reviewerID}/{status}")

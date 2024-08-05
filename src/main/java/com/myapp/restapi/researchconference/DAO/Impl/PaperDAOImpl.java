@@ -39,6 +39,19 @@ public class PaperDAOImpl implements PaperDAO {
     }
 
     @Override
+    public long findTotalBidPapers(int reviewerID) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Long> query = session.createQuery("SELECT count(p.id) FROM Paper p WHERE p.status = :status AND p.paperID " +
+                "NOT IN (SELECT bp.paper.paperID FROM BlacklistPaper bp WHERE bp.reviewer.reviewerID = :reviewerID)" +
+                "AND p.paperID NOT IN (SELECT b.paper.paperID FROM Bid b WHERE b.reviewer.reviewerID = :reviewerID) ", Long.class);
+
+        query.setParameter("status", "Pending");
+        query.setParameter("reviewerID", reviewerID);
+
+        return query.getSingleResult();
+    }
+
+    @Override
     public List<Paper> findBidPapers(int reviewerID) {
         Session session = entityManager.unwrap(Session.class);
         Query<Paper> query = session.createQuery("SELECT p FROM Paper p WHERE p.status = :status AND p.paperID " +
@@ -49,6 +62,19 @@ public class PaperDAOImpl implements PaperDAO {
         query.setParameter("reviewerID", reviewerID);
 
         return query.getResultList();
+    }
+
+    @Override
+    public long findTotalBanPapers(int reviewerID) {
+        Session session = entityManager.unwrap(Session.class);
+        Query<Long> query = session.createQuery("SELECT count(p.id) FROM Paper p WHERE p.status = :status AND p.paperID " +
+                "IN (SELECT bp.paper.paperID FROM BlacklistPaper bp WHERE bp.reviewer.reviewerID = :reviewerID)" +
+                "AND p.paperID NOT IN (SELECT b.paper.paperID FROM Bid b WHERE b.reviewer.reviewerID = :reviewerID) ", Long.class);
+
+        query.setParameter("status", "Pending");
+        query.setParameter("reviewerID", reviewerID);
+
+        return query.getSingleResult();
     }
 
     @Override

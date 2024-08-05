@@ -23,7 +23,10 @@ public interface PapersRestService {
 
     List<ReviewDTO> findPapersReviews(int paperID);
 
+    long findTotalBidPapers(int reviewerID);
     List<PaperDTO> findBidPapers(int reviewerID);
+    long findTotalBanPapers(int reviewerID);
+
     List<PaperDTO> findBanPapers(int reviewerID);
     List<PaperDTO> findPapersThatReviewed();
     List<PaperDTO> findCompletedPapers();

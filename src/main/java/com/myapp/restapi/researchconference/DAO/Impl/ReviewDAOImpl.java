@@ -27,11 +27,13 @@ public class ReviewDAOImpl implements ReviewDAO {
     }
 
     @Override
-    public List<Review> findMyReviews(int reviewerID) {
+    public List<Review> findMyReviews(int reviewerID, int pageNumber) {
         Session session = entityManager.unwrap(Session.class);
 
         Query<Review> reviewQuery = session.createQuery("From Review where bid.reviewer .reviewerID = :reviewerID", Review.class);
         reviewQuery.setParameter("reviewerID", reviewerID);
+        reviewQuery.setFirstResult((pageNumber - 1) * 5);
+        reviewQuery.setMaxResults(5);
 
         return reviewQuery.getResultList();
     }

@@ -51,8 +51,8 @@ public class BidRestServiceImpl implements BidRestService {
 
     @Override
     @Transactional
-    public List<BidDTO> findMyAcceptedBid(int reviewerID) {
-        List<Bid> bid = bidDAO.findMyAcceptedBid(reviewerID);
+    public List<BidDTO> findMyAcceptedBid(int reviewerID, int pageNumber) {
+        List<Bid> bid = bidDAO.findMyAcceptedBid(reviewerID, pageNumber);
         return BidDTO.DTOList(bid);
     }
 

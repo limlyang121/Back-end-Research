@@ -20,7 +20,10 @@ public interface PaperDAO {
 
     Optional<Paper> findPaperByID(int userID);
 
+    long findTotalBidPapers(int reviewerID);
+
     List<Paper> findBidPapers(int reviewerID);
+    long findTotalBanPapers(int reviewerID);
 
     List<Paper> findBanPapers(int reviewerID);
 

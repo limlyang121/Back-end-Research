@@ -36,9 +36,9 @@ public class ReviewRest {
     }
 
     @GetMapping("reviews/myReviews")
-    public List<ReviewDTO> findMyReviews(HttpServletRequest request){
+    public List<ReviewDTO> findMyReviews(@RequestParam int pageNumber, HttpServletRequest request){
         int reviewerID = getDataFromJWT.getID(request);
-        return reviewRestService.findMyReviews(reviewerID);
+        return reviewRestService.findMyReviews(reviewerID, pageNumber);
     }
     @GetMapping("reviews/{reviewID}")
     public ReviewDTO findReviewByID(@PathVariable int reviewID, HttpServletRequest request) throws IllegalAccessException {

@@ -73,10 +73,21 @@ public class PaperRest {
         return papersRestService.findPaperByID(paperID, authorID);
     }
 
+    @GetMapping("papers/bid/total")
+    public long findTotalBidPapers (HttpServletRequest request) {
+        int reviewerID = getDataFromJWT.getID(request);
+        return papersRestService.findTotalBidPapers(reviewerID);
+    }
     @GetMapping("papers/bid")
     public List<PaperDTO> findBidPapers(HttpServletRequest request) {
         int reviewerID = getDataFromJWT.getID(request);
         return papersRestService.findBidPapers(reviewerID);
+    }
+
+    @GetMapping("papers/ban/total")
+    public long findTotalBanPapers(HttpServletRequest request){
+        int reviewerID = getDataFromJWT.getID(request);
+        return papersRestService.findTotalBanPapers(reviewerID);
     }
 
     @GetMapping("papers/ban")

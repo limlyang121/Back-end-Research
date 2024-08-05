@@ -94,10 +94,20 @@ public class PapersRestServiceImpl implements PapersRestService {
     }
 
     @Override
+    public long findTotalBidPapers(int reviewerID) {
+        return paperDAO.findTotalBidPapers(reviewerID);
+    }
+
+    @Override
     @Transactional
     public List<PaperDTO> findBidPapers(int reviewerID) {
         List<Paper> paperList = paperDAO.findBidPapers(reviewerID);
         return PaperDTO.convertToDTO(paperList);
+    }
+
+    @Override
+    public long findTotalBanPapers(int reviewerID) {
+        return paperDAO.findTotalBanPapers(reviewerID);
     }
 
     @Override

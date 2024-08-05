@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ReviewRestService {
     long findMyTotalReviews(int reviewerID);
-    List<ReviewDTO> findMyReviews(int reviewerID);
+    List<ReviewDTO> findMyReviews(int reviewerID, int pageNumber);
     ReviewDTO findReviewByID(int reviewID, int reviewerID) throws IllegalAccessException;
     List<ReviewDTO> findReviewedPaper();
 

@@ -11,7 +11,7 @@ public interface BidDAO {
     List<Bid> findMyBidByStatus(int reviewerID, String status);
 
     long findMyTotalAcceptedBid(int reviewerID);
-    List<Bid> findMyAcceptedBid(int reviewerID);
+    List<Bid> findMyAcceptedBid(int reviewerID, int pageNumber);
     List<Bid> findMyCompletedBid(int reviewerID);
 
     List<Bid> findReadyPapersBid();
