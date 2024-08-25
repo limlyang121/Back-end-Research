@@ -22,10 +22,10 @@ public interface PaperDAO {
 
     long findTotalBidPapers(int reviewerID);
 
-    List<Paper> findBidPapers(int reviewerID);
+    List<Paper> findBidPapers(int reviewerID, int pageNumber);
     long findTotalBanPapers(int reviewerID);
 
-    List<Paper> findBanPapers(int reviewerID);
+    List<Paper> findBanPapers(int reviewerID, int pageNumber);
 
     List<Paper> findPapersThatReviewed();
 

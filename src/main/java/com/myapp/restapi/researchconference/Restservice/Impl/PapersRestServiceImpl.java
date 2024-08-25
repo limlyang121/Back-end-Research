@@ -100,8 +100,8 @@ public class PapersRestServiceImpl implements PapersRestService {
 
     @Override
     @Transactional
-    public List<PaperDTO> findBidPapers(int reviewerID) {
-        List<Paper> paperList = paperDAO.findBidPapers(reviewerID);
+    public List<PaperDTO> findBidPapers(int reviewerID, int pageNumber) {
+        List<Paper> paperList = paperDAO.findBidPapers(reviewerID, pageNumber);
         return PaperDTO.convertToDTO(paperList);
     }
 
@@ -112,8 +112,8 @@ public class PapersRestServiceImpl implements PapersRestService {
 
     @Override
     @Transactional
-    public List<PaperDTO> findBanPapers(int reviewerID) {
-        List<Paper> paperList = paperDAO.findBanPapers(reviewerID);
+    public List<PaperDTO> findBanPapers(int reviewerID , int pageNumber) {
+        List<Paper> paperList = paperDAO.findBanPapers(reviewerID, pageNumber);
         return PaperDTO.convertToDTO(paperList);
     }
 

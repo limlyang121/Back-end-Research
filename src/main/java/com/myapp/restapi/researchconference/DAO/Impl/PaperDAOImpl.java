@@ -52,7 +52,7 @@ public class PaperDAOImpl implements PaperDAO {
     }
 
     @Override
-    public List<Paper> findBidPapers(int reviewerID) {
+    public List<Paper> findBidPapers(int reviewerID, int pageNumber) {
         Session session = entityManager.unwrap(Session.class);
         Query<Paper> query = session.createQuery("SELECT p FROM Paper p WHERE p.status = :status AND p.paperID " +
                 "NOT IN (SELECT bp.paper.paperID FROM BlacklistPaper bp WHERE bp.reviewer.reviewerID = :reviewerID)" +
@@ -60,6 +60,8 @@ public class PaperDAOImpl implements PaperDAO {
 
         query.setParameter("status", "Pending");
         query.setParameter("reviewerID", reviewerID);
+        query.setFirstResult((pageNumber - 1) * 5);
+        query.setMaxResults(5);
 
         return query.getResultList();
     }
@@ -78,7 +80,7 @@ public class PaperDAOImpl implements PaperDAO {
     }
 
     @Override
-    public List<Paper> findBanPapers(int reviewerID){
+    public List<Paper> findBanPapers(int reviewerID, int pageNumber){
         Session session = entityManager.unwrap(Session.class);
         Query<Paper> query = session.createQuery("SELECT p FROM Paper p WHERE p.status = :status AND p.paperID " +
                 "IN (SELECT bp.paper.paperID FROM BlacklistPaper bp WHERE bp.reviewer.reviewerID = :reviewerID)" +
@@ -86,6 +88,8 @@ public class PaperDAOImpl implements PaperDAO {
 
         query.setParameter("status", "Pending");
         query.setParameter("reviewerID", reviewerID);
+        query.setFirstResult((pageNumber - 1) * 5);
+        query.setMaxResults(5);
 
         return query.getResultList();
     }
